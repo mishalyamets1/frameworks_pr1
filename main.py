@@ -37,17 +37,6 @@ def create_request_details(
     )
 
 
-def check_request_filter(status, priority, room_name, filter_status, filter_priority, filter_room):
-    """Проверка соответствия заявки фильтрам при просмотре."""
-    status_match = filter_status == "" or status == filter_status
-    priority_match = filter_priority == "" or priority == filter_priority
-    room_match = filter_room == "" or room_name == filter_room
-
-    if status_match and priority_match and room_match:
-        return "Заявка отображается в списке по выбранным фильтрам"
-    return "Заявка скрыта выбранными фильтрами"
-
-
 def executor_and_update_status(current_status, executor, new_status):
     """Назначение исполнителя и изменение статуса заявки."""
     if current_status == "отклонена":
@@ -73,21 +62,16 @@ def add_comment(existing_comment, new_comment):
 
 
 print("--- Создание заявки ---")
-print(format_request_details(
+print(create_request_details(
     request_id, room_name, floor, category, description, priority, status, created_date
 ))
 
-print()
-print("--- Просмотр с фильтрацией ---")
-filter_status = "новая"
-filter_priority = "высокий"
-filter_room = "Офис 205"
-print(check_request_filter(status, priority, room_name, filter_status, filter_priority, filter_room))
+
 
 print()
 print("--- Назначение исполнителя ---")
 executor_name = "Иванов А.С."
-status, executor_name, assign_message = assign_executor_and_update_status(
+status, executor_name, assign_message = executor_and_update_status(
     status, executor_name, "в работе"
 )
 print(assign_message)
