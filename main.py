@@ -67,7 +67,6 @@ print(create_request_details(
 ))
 
 
-
 print()
 print("--- Назначение исполнителя ---")
 executor_name = "Иванов А.С."
